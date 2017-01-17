@@ -1,8 +1,8 @@
-var request = require('request');
-var https = require('https');
-var fs = require('fs');
-var GITHUB_USER = 'iamtonybologna';
-var GITHUB_TOKEN = 'b1d448a48b1e6f52b5303b1f899e2c7f3d179478';
+const request = require('request');
+const https = require('https');
+const fs = require('fs');
+const GITHUB_USER = 'iamtonybologna';
+const GITHUB_TOKEN = 'b1d448a48b1e6f52b5303b1f899e2c7f3d179478';
 
 var owner;
 var repo;
