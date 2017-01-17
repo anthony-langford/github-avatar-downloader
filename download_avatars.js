@@ -9,18 +9,16 @@ var repo;
 owner = process.argv[2];
 repo = process.argv[3];
 
-console.log('Welcome to the GitHub Avatar Downloader!');
+console.log('\nWelcome to the GitHub Avatar Downloader!\n');
 
-if (owner === undefined && repo === undefined) {
-  console.log('You didn\'t provide an owner and repo for me! Please run me again: node download_avatars.js <owner> <repo>');
-} else if (repo === undefined) {
-  console.log('You didn\'t provide an repo for me! Please run me again: node download_avatars.js <owner> <repo>')
-} else if (owner === undefined) {
-  console.log('You didn\'t provide an owner for me! Please run me again: node download_avatars.js <owner> <repo>')
-}
+// throws error if owner or repo variables aren't provided and lets user know what's wrong
+if (owner === undefined || repo === undefined) {
+  console.log('You didn\'t provide an owner and repo for me! Please run me again: node download_avatars.js <owner> <repo>\n\n\n');
+  throw new Error('Need owner and repo inputs')
+};
 
+// gets repo contributors based on github api URL, owner, and repo then gets and parses data into JSON object
 function getRepoContributors(repoOwner, repoName, callback) {
-
 
   var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
 
@@ -37,9 +35,9 @@ function getRepoContributors(repoOwner, repoName, callback) {
       callback(error, body);
     };
   })
-
 };
 
+// downloads images to avatars/ folder for each iteration of the data file and sets filename to username
 function downloadImageByURL(url, filePath) {
   request.get(url)
     .pipe(fs.createWriteStream(filePath))
